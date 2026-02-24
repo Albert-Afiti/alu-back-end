@@ -7,13 +7,13 @@ Requirements:
 - Uses requests module
 - Accepts an integer as a parameter (employee ID)
 - Displays employee TODO list progress in the specified format:
-  Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):
+  Employee EMPLOYEE_NAME is done with tasks
+  (NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):
       TASK_TITLE
 """
 
 import requests
 import sys
-
 
 
 def get_employee_todo_progress(employee_id):
