@@ -1,21 +1,17 @@
 #!/usr/bin/python3
 """
 Script that uses a REST API to export an employee's TODO list data
-in JSON format.
+in CSV format.
 
 Requirements:
 - Uses requests module
 - Accepts an integer as a parameter (employee ID)
-- Exports all tasks owned by this employee into JSON
-- Format: { "USER_ID": [
-    {"task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS,
-     "username": "USERNAME"},
-    ...
-  ]}
-- File name must be: USER_ID.json
+- Exports all tasks owned by this employee into CSV
+- Format: "USER_ID","USERNAME","TASK_COMPLETED_STATUS","TASK_TITLE"
+- File name must be: USER_ID.csv
 
 PEP8 Validation:
-- Run `pycodestyle 2-export_to_JSON.py` or `flake8 2-export_to_JSON.py`
+- Run `pycodestyle 1-export_to_CSV.py` or `flake8 1-export_to_CSV.py`
 - Ensure:
   * Imports are alphabetically ordered
   * Line length ≤ 79 characters
@@ -23,14 +19,14 @@ PEP8 Validation:
   * Proper indentation (4 spaces)
 """
 
-import json
+import csv
 import requests
 import sys
 
 
-def export_employee_todo_to_json(employee_id):
+def export_employee_todo_to_csv(employee_id):
     """
-    Fetch tasks for a given employee ID and export them to JSON file.
+    Fetch tasks for a given employee ID and export them to CSV file.
     """
     base_url = "https://jsonplaceholder.typicode.com"
 
@@ -49,26 +45,22 @@ def export_employee_todo_to_json(employee_id):
     response_todos = requests.get(todos_url)
     tasks = response_todos.json()
 
-    # Build JSON structure
-    task_list = []
-    for task in tasks:
-        task_list.append({
-            "task": task.get("title"),
-            "completed": task.get("completed"),
-            "username": username
-        })
-
-    data = {str(employee_id): task_list}
-
-    # Export to JSON file
-    filename = f"{employee_id}.json"
-    with open(filename, "w", encoding="utf-8") as json_file:
-        json.dump(data, json_file)
+    # Export to CSV file
+    filename = f"{employee_id}.csv"
+    with open(filename, "w", newline="", encoding="utf-8") as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        for task in tasks:
+            writer.writerow([
+                str(employee_id),
+                username,
+                str(task.get("completed")),
+                task.get("title")
+            ])
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: ./2-export_to_JSON.py <employee_id>")
+        print("Usage: ./1-export_to_CSV.py <employee_id>")
         sys.exit(1)
 
     try:
@@ -77,4 +69,4 @@ if __name__ == "__main__":
         print("Error: Employee ID must be an integer.")
         sys.exit(1)
 
-    export_employee_todo_to_json(employee_id)
+    export_employee_todo_to_csv(employee_id)
