@@ -6,16 +6,9 @@ TODO list progress.
 Requirements:
 - Uses requests module
 - Accepts an integer as a parameter (employee ID)
-- Displays employee TODO list progress in the specified format
-
-PEP8 Validation:
-- Run `pycodestyle 0-gather_data_from_an_API.py` or `flake8 0-gather_data_from_an_API.py`
-- Ensure:
-  * Imports are alphabetically ordered
-  * Line length ≤ 79 characters
-  * Two blank lines before top-level functions
-  * One blank line between logical code sections inside functions
-  * Proper indentation (4 spaces)
+- Displays employee TODO list progress in the specified format:
+  Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):
+      TASK_TITLE
 """
 
 import requests
