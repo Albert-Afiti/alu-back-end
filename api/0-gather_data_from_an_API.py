@@ -7,6 +7,15 @@ Requirements:
 - Uses requests module
 - Accepts an integer as a parameter (employee ID)
 - Displays employee TODO list progress in the specified format
+
+PEP8 Validation:
+- Run `pycodestyle 0-gather_data_from_an_API.py` or `flake8 0-gather_data_from_an_API.py`
+- Ensure:
+  * Imports are alphabetically ordered
+  * Line length ≤ 79 characters
+  * Two blank lines before top-level functions
+  * One blank line between logical code sections inside functions
+  * Proper indentation (4 spaces)
 """
 
 import requests
@@ -14,8 +23,9 @@ import sys
 
 
 def get_employee_todo_progress(employee_id):
-    """Fetch and display TODO list progress for a given employee ID."""
-    # Base URL for the API
+    """
+    Fetch and display TODO list progress for a given employee ID.
+    """
     base_url = "https://jsonplaceholder.typicode.com"
 
     # Get employee information
@@ -38,7 +48,10 @@ def get_employee_todo_progress(employee_id):
     number_of_done_tasks = len(done_tasks)
 
     # Print progress
-    print(f"Employee {employee_name} is done with tasks({number_of_done_tasks}/{total_tasks}):")
+    print(
+        f"Employee {employee_name} is done with tasks"
+        f"({number_of_done_tasks}/{total_tasks}):"
+    )
     for task in done_tasks:
         print(f"\t {task.get('title')}")
 
